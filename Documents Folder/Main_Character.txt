@@ -1,0 +1,12 @@
+Main Character
+Will move using the WASD buttons on the keypad
+Will be able to kill enemies and bosses using a sword
+The attack button will be the Y on the keypad
+Will be able able to defend themselves using a shield
+The defend button will be the U on the keypad
+Will be able to dodge in any direction
+The dodge button will be the O on the keypad
+When the player collects enough of a special item they will able to do a heavy attack
+The heavy attack will be the P on the keypad
+The player will be able to gain gold and exp from deafeting enemies
+Once they are leveled up enough they will be able to get new equipment

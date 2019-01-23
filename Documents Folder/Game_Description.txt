@@ -1,0 +1,16 @@
+The main goal of the game is to defeat all the enemies in an area to capture the keep
+There will be a time limit depending on what level you are currently playing
+The less time you have the harder the enemies will be to defeat
+The when all the enemies are defeated then there will be a main enemy you must defeat to capute the keep
+Level one will be like a tutorial
+It will introduce you to the main game play tasks of the game
+The first level will consist of one area you must take over
+The enemies will be easy to defeat and the mini boss will be after all the smaller enemies are defeated
+The second level will have two areas you must capture
+You must complete the first area before you can capture the second area
+Again there will be a mini boss in both areas
+In the third area you will have to defeat enemies that are like mini bosses to enter the area you must capture
+Once you defeat them then you will be able to continue to captuing the area
+The forth area will bea mix of area 2 and 3 just the enemies are harder
+The fifth and final area will be like area 4 but will have a big boss after you capture the two areas
+once you beat the boss the game will finish
