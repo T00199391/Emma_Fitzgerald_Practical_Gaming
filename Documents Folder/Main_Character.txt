@@ -3,7 +3,7 @@ Main Character
 --Movement--
 The method moveFoward(float movementSpeed) will move the character in a forward direction
 This method will called when the player presses W
-The method moveBack(float turnSpeed) will make the character turn 180 degrees ata a given speed
+The method moveBack(float turnSpeed) will make the character turn 180 degrees at a given speed
 This method will be called when the player presses S
 The method moveRight(float turnSpeed) will make the character turn 90 degrees right at a given speed
 This method will be called when the player presses D
@@ -18,7 +18,7 @@ The method dodgeBackward(float dodgeSpeed) will make the character move back a c
 This method will be called when teh player presses tab and S
 The method dodgeRight(float dodgeSpeed) will make the character move right a certain distance to dodge enemy attacks
 This method will be called when the player presses tab and D
-The method dodgeLeft(float dodgeSpeed) will make the character move left a certain distance to dodge eenmy attacks
+The method dodgeLeft(float dodgeSpeed) will make the character move left a certain distance to dodge enemy attacks
 This method will be callled when the player presses tab and A
 
 --Attacking--
@@ -29,16 +29,16 @@ This method can only be called when a certain condition is meet ie a certain amo
 Whne the condition is meet the character can press E to activate the special move
 
 --Picking Up Items--
-The method itemPickUp(float itemNum) will determine what item the player has picked up from fallen enemies
+The method itemPickUp(int itemNum) will determine what item the player has picked up from fallen enemies
 The player can pick up:
-    Health Items to increase there health. If their health is already max then the character will not pick up the item and can leave ot there till they need health
+    Health Items to increase there health. If their health is already max then the character will not pick up the item and can leave ot there till thsey need health
     Coins that can be used to upgrade the characters weapons to be stronger
     Special items will increase the bar that will determine when the player can use their special attack
     
 --Leveling Up--
-The method levelUp(float exp) will take in the experience the character will get from defeating enemies and determine if the character will level up or not
+The method levelUp(int exp) will take in the experience the character will get from defeating enemies and determine if the character will level up or not
 The method will call the method unlockItems(float level) when the player levels up
-The method unlockItems(float level) will unlock items at the shop for the character to buy upgrades from their sword and sheild
+The method unlockItems(int level) will unlock items at the shop for the character to buy upgrades from their sword and sheild
 
  
 --Camera Control--
