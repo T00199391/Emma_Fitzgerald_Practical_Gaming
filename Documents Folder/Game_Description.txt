@@ -1,16 +1,51 @@
-The main goal of the game is to defeat all the enemies in an area to capture the keep
-There will be a time limit depending on what level you are currently playing
-The less time you have the harder the enemies will be to defeat
-The when all the enemies are defeated then there will be a main enemy you must defeat to capute the keep
-Level one will be like a tutorial
-It will introduce you to the main game play tasks of the game
+--Game Description--
+This game is a hack and slash wehere you have to defeat a ceratin amount of enemies in an area to take over the area
+Each area will have a a set amount of enemies that will spawn
+After you defeat the set amount of smaller enemies in that area then a mini boss will apperar with more of the smaller enemies
+Once you defeat the mini boss you press the button to take the keep adn win that level
+The player will have a timer that they will have to defeta the enemies in
+If they run out of time its game over and they will have to start that level again
+The closer the timer gets to the end the harder the enemies get making it more difficult
+When you kill enemies there is a chance they wull drop items that will help the player
+The player will also get experience when they defeat an enemy
+The player will start the game with only a wooden sword and sheild
+These weapons can be upgraded when the player leveles up
+The player will be able to upgrade their weapons when they go to the shop and spend the gold they got from th enemies
+
+--Level One--
+Level one will be like a tutorial level
+It will introduce the player to the main game play tasks  
 The first level will consist of one area you must take over
 The enemies will be easy to defeat and the mini boss will be after all the smaller enemies are defeated
+
+--Level Two--
 The second level will have two areas you must capture
-You must complete the first area before you can capture the second area
+One of the areas will be locked untill the first area has been taken over
 Again there will be a mini boss in both areas
+
+--Level Three--
 In the third area you will have to defeat enemies that are like mini bosses to enter the area you must capture
 Once you defeat them then you will be able to continue to captuing the area
+
+--Level Four--
 The forth area will bea mix of area 2 and 3 just the enemies are harder
-The fifth and final area will be like area 4 but will have a big boss after you capture the two areas
-once you beat the boss the game will finish
+
+--Level Five(Final area)--
+The fifth and final area will be like area 4 but will have a final boss after you capture the two areas
+Once you beat the boss the game will finish
+
+--Basic Methods--
+The method enemiesDefeated() will determine how many enemies are left for the player to defeat
+The method will call the method spawnMiniBoss() when the set amount of enemies to defeat in that area is meet
+The method spawnMiniBoss() will spawn one harder enemy and a random number (between 10 and 15) of smaller enemies into the area
+The method spawnEnemies() will spawn a random number of enmies(between 10 and 15) into an area
+The method will set the health of the enemies
+The method itemDrop() will drop an item randonly when an emeny is defeated
+
+--Enemy Methods--
+The method enemyMoveForward will move the enemy forward at a set speed
+The method enemyMoveBack will move the enemy back at a set speed
+The method enemyMoveRight will move the enemy right at a set speed
+The method enemyMoveLeft will move the enemy left at a set speed
+The method enemyAttack() will make the enemy attack the player when they are a certain distance from the player
+The method enemyDeath(float health) will determine the enemy dies and what happens when the enemy dies

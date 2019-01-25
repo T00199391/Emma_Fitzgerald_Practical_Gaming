@@ -1,12 +1,48 @@
 Main Character
-Will move using the WASD buttons on the keypad
-Will be able to kill enemies and bosses using a sword
-The attack button will be the Y on the keypad
-Will be able able to defend themselves using a shield
-The defend button will be the U on the keypad
-Will be able to dodge in any direction
-The dodge button will be the O on the keypad
-When the player collects enough of a special item they will able to do a heavy attack
-The heavy attack will be the P on the keypad
-The player will be able to gain gold and exp from deafeting enemies
-Once they are leveled up enough they will be able to get new equipment
+
+--Movement--
+The method moveFoward(float movementSpeed) will move the character in a forward direction
+This method will called when the player presses W
+The method moveBack(float turnSpeed) will make the character turn 180 degrees ata a given speed
+This method will be called when the player presses S
+The method moveRight(float turnSpeed) will make the character turn 90 degrees right at a given speed
+This method will be called when the player presses D
+The method moveLeft(float turnSpeed) will make the character turn 90 degrees left at a given speed
+The method characterSprint(float sprintSpeed) will increase the speed of the characetr in a given direction
+This method will be called when the character presses shift
+
+--Dodge--
+The method dodgeForward(float dodgeSpeed) will make the character move forward a certain distance to dodge enemy attackes
+This method will be called when the player presses tab and W
+The method dodgeBackward(float dodgeSpeed) will make the character move back a certain distance to dodge enemy attacks
+This method will be called when teh player presses tab and S
+The method dodgeRight(float dodgeSpeed) will make the character move right a certain distance to dodge enemy attacks
+This method will be called when the player presses tab and D
+The method dodgeLeft(float dodgeSpeed) will make the character move left a certain distance to dodge eenmy attacks
+This method will be callled when the player presses tab and A
+
+--Attacking--
+The method attack() will make the character swing the weapon they are holding at an enemy or at the eniviornment to break an item
+This method will be called when the player presses space
+The method specialAttack() will let the character do a 360 swing of their sword to hit many enemies at once
+This method can only be called when a certain condition is meet ie a certain amount of an item is collected
+Whne the condition is meet the character can press E to activate the special move
+
+--Picking Up Items--
+The method itemPickUp(float itemNum) will determine what item the player has picked up from fallen enemies
+The player can pick up:
+    Health Items to increase there health. If their health is already max then the character will not pick up the item and can leave ot there till they need health
+    Coins that can be used to upgrade the characters weapons to be stronger
+    Special items will increase the bar that will determine when the player can use their special attack
+    
+--Leveling Up--
+The method levelUp(float exp) will take in the experience the character will get from defeating enemies and determine if the character will level up or not
+The method will call the method unlockItems(float level) when the player levels up
+The method unlockItems(float level) will unlock items at the shop for the character to buy upgrades from their sword and sheild
+
+ 
+--Camera Control--
+The game will be in third person view
+The method controlCamera() will determine where the camera is pointing at a given time
+The player can move the camera using the mouse
+They will be able to get a 360 degress view of the area the player is in
