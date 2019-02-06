@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// the speed at which the character will move at
     /// </summary>
-    private float movementSpeed=2.5f;
+    public float movementSpeed = 3;
     /// <summary>
     /// the speed at which the character will turn
     /// </summary>
@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 vec = new Vector3(0, 0, 2);
     Vector3 vec2 = new Vector3(2, 0, 0);
 
+    public float turningSpeed = 150;
+
     // Use this for initialization
     void Start () {
 		
@@ -32,9 +34,14 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         isMoving();
-        isSpriting();
-        isDodging();
-        isAttacking();
+        //isSpriting();
+        //isDodging();
+        //isAttacking();
+        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
+        transform.Rotate(0, horizontal, 0);
+
+        float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
+        transform.Translate(0, 0, vertical);
     }
 
     /// <summary>
@@ -42,21 +49,13 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void isMoving()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             moveForward(movementSpeed);
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveBack(movementSpeed);
-        }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             moveLeft(turnSpeed);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveRight(turnSpeed);
         }
     }
 
@@ -71,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
         {
-            moveBack(sprintSpeed);
+            //moveBack(sprintSpeed);
         }
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
         {
@@ -79,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
         {
-            moveRight(sprintTurnSpeed);
+            //moveRight(sprintTurnSpeed);
         }
     }
 
@@ -127,26 +126,27 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="movementSpeed">the speed at which the character will move at</param>
     private void moveForward(float ms)
     {
-        transform.position += ms * transform.forward * Time.deltaTime;
+        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
+        transform.Rotate(0, horizontal, 0);
     }
 
     /// <summary>
     /// will make the character turn 180 degrees ata a given speed
     /// </summary>
     /// <param name="turnSpeed">the speed at which the character will turn</param>
-    private void moveBack(float ms)
-    {
-        transform.position -= ms * transform.forward * Time.deltaTime;
-    }
+    //private void moveBack(float ms)
+    //{
+    //    transform.position -= ms * transform.forward * Time.deltaTime;
+    //}
 
     /// <summary>
     /// will make the character turn 90 degrees right at a given speed
     /// </summary>
     /// <param name="turnSpeed">the speed at which the character will turn</param>
-    private void moveRight(float ts)
-    {
-        transform.Rotate(Vector3.up, ts * Time.deltaTime);
-    }
+    //private void moveRight(float ts)
+    //{
+    //    transform.Rotate(Vector3.up, ts * Time.deltaTime);
+    //}
 
     /// <summary>
     /// will make the character turn 90 degrees left at a given speed
@@ -154,7 +154,8 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="turnSpeed">the speed at which the character will turn</param>
     private void moveLeft(float ts)
     {
-        transform.Rotate(Vector3.up, -ts * Time.deltaTime);
+        float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
+        transform.Translate(0, 0, vertical);
     }
 
     /// <summary>
