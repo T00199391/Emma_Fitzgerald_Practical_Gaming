@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour {
+public class EnemyHealth : MonoBehaviour {
 
-    int health = 100;
-    int maxHealth = 100;
+    private int health = 100;
     Text healthText;
     RectTransform position;
 
@@ -14,14 +13,14 @@ public class Health : MonoBehaviour {
     void Start () {
         healthText = gameObject.GetComponentInChildren<Text>();
         position = healthText.GetComponentInChildren<RectTransform>();
-        setPosition(-481, 274, 0);
+        setPosition(481, 274, 0);
         healthText.text = health.ToString();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
-    }
+		
+	}
 
     public void setPosition(int x, int y, int z)
     {
@@ -31,7 +30,7 @@ public class Health : MonoBehaviour {
 
     public void isAttacked()
     {
-        health -= 5;
+        health -= 20;
         healthText.text = health.ToString();
     }
 
