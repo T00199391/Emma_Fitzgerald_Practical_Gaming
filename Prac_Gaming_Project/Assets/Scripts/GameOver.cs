@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour {
 
     Text gameOverText;
-    Health health;
+    PlayerHealth health;
 
     // Use this for initialization
     void Start () {
         gameOverText = gameObject.GetComponentInChildren<Text>();
-        health = FindObjectOfType<Health>();
+        health = FindObjectOfType<PlayerHealth>();
     }
 	
 	// Update is called once per frame

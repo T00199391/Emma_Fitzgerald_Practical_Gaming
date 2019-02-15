@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectEnemy : MonoBehaviour {
+public class ControlEnemy : MonoBehaviour {
 
     float maxDistance = 3f;
     float disBetween;
     public Transform enemy;
     public GameObject target;
-    private Health health;
-    private EnemyHealth eHealth;
+    private PlayerHealth playerhealth;
+    private EnemyHealth enemyHealth;
+    private Movement usingShield;
 
 
 	// Use this for initialization
 	void Start () {
-        health = FindObjectOfType<Health>();
-        eHealth = FindObjectOfType<EnemyHealth>();
+        playerhealth = FindObjectOfType<PlayerHealth>();
+        enemyHealth = FindObjectOfType<EnemyHealth>();
+        usingShield = FindObjectOfType<Movement>();
     }
 	
 	// Update is called once per frame
@@ -23,12 +25,14 @@ public class DetectEnemy : MonoBehaviour {
         canAttack();
 	}
 
+    //This will find the distance between the player and the character
     public float findingDistance()
     {
         disBetween = Vector3.Distance(transform.position, enemy.position);
         return disBetween;
     }
 
+    //This is used to determine if the player is close to the enemy
     public bool isNear(float dis)
     {
         if(dis <= maxDistance)
@@ -39,22 +43,26 @@ public class DetectEnemy : MonoBehaviour {
         return false;
     }
 
+    //This will see if the player is attacking the enemy or the enemy is attacking the player
     public void canAttack()
     {
         if(isNear(findingDistance()))
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                eHealth.isAttacked();
+                enemyHealth.isAttacked();
 
-                if(eHealth.isDead())
+                if(enemyHealth.isDead())
                 {
                     Destroy(target);
                 }
             }
             if(Input.GetKeyDown(KeyCode.P))
             {
-                health.isAttacked();
+                if (!usingShield.usingShield())
+                {
+                    playerhealth.isAttacked();
+                }
             }
         }
     }

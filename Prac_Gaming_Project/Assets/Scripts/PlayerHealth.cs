@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour
+{
 
     int health = 100;
     int maxHealth = 100;
@@ -11,16 +12,18 @@ public class Health : MonoBehaviour {
     RectTransform position;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         healthText = gameObject.GetComponentInChildren<Text>();
         position = healthText.GetComponentInChildren<RectTransform>();
         setPosition(-481, 274, 0);
         healthText.text = health.ToString();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public void setPosition(int x, int y, int z)
@@ -29,12 +32,14 @@ public class Health : MonoBehaviour {
         position.Translate(distance);
     }
 
+    //Will lower the players health when attacked
     public void isAttacked()
     {
         health -= 5;
         healthText.text = health.ToString();
     }
 
+    //Will determine when the player dies
     public bool isDead()
     {
         if (health <= 0)
@@ -43,5 +48,11 @@ public class Health : MonoBehaviour {
         }
         else
             return false;
+    }
+
+    public void getHelath()
+    {
+         health += 5;
+         healthText.text = health.ToString();
     }
 }

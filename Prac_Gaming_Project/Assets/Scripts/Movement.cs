@@ -9,17 +9,18 @@ public class Movement : MonoBehaviour {
     private float sprintSpeed = 5;
     private float sprintTurningSpeed = 200;
     private Vector3 dodge = new Vector3(0, 0, 2);
+    private PlayerHealth gainHealth;
 
     // Use this for initialization
     void Start () {
-		
+        gainHealth = FindObjectOfType<PlayerHealth>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         isMoving();
         isSprinting();
-        isDodging();
+        usingShield();
 	}
 
     private void isMoving()
@@ -46,15 +47,15 @@ public class Movement : MonoBehaviour {
         }
     }
 
-    private void isDodging()
+    public bool usingShield()
     {
-        if(Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Tab))
+        if(Input.GetKey(KeyCode.E))
         {
-            dodgingForward();
+            return true;
         }
-        if(Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Tab))
+        else
         {
-            dodgingBack();
+            return false;
         }
     }
 
@@ -72,25 +73,20 @@ public class Movement : MonoBehaviour {
 
     private void sprintVer(float ss)
     {
-        //float vertical = Input.GetAxis("Vertical") * ss * Time.deltaTime;
-        //transform.Translate(0, 0, vertical);
         moveVer(ss);
     }
 
     private void sprintHor(float sts)
     {
-        //float horizontal = Input.GetAxis("Horizontal") * sts * Time.deltaTime;
-        //transform.Rotate(0, horizontal, 0);
         moveHor(sts);
     }
 
-    private void dodgingForward()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    private void dodgingBack()
-    { 
-
+        if (other.gameObject.CompareTag("Health"))
+        {
+            Destroy(other.gameObject);
+            gainHealth.getHelath();
+        }
     }
 }
