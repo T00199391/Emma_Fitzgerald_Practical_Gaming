@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class TestMovement : MonoBehaviour {
 
-    public float moveSpeed;
+    private float moveSpeed = 5;
+    private float sprintSpeed = 10;
     public CharacterController controller;
     private Vector3 moveDirection;
-    public float gravityScale;
     public Animator anim;
     public Transform pivot;
-    public float rotateSpeed;
+    private float rotateSpeed = 10;
     public GameObject playerModel;
+    private bool moving = false;
+    private bool sprinting = false;
+    private bool attacking = false;
         
 	// Use this for initialization
 	void Start () {
@@ -20,15 +23,39 @@ public class TestMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        moveDirection = (transform.forward * Input.GetAxis("Vertical") * moveSpeed) + (transform.right * Input.GetAxis("Horizontal") * moveSpeed);
-        moveDirection = moveDirection.normalized * moveSpeed;
+        isMoving();
+        isSprinting();
+        isAttacking();
+	}
+
+    private void isMoving()
+    {
+        if(!(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)))
+        {
+            moving = true;
+        }
+        else
+        {
+            moving = false;
+        }
+
+        if (moving)
+        {
+            moveCharacter(moveSpeed);
+        }
+    }
+
+    private void moveCharacter(float speed)
+    {
+        moveDirection = (transform.forward * Input.GetAxis("Vertical") * speed) + (transform.right * Input.GetAxis("Horizontal") * speed);
+        moveDirection = moveDirection.normalized * speed;
 
         //moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, 0f, Input.GetAxis("Vertical") * moveSpeed);
 
         controller.Move(moveDirection * Time.deltaTime);
 
         //Move the player is different directions based on camera look direction
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
@@ -36,5 +63,46 @@ public class TestMovement : MonoBehaviour {
         }
 
         anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
-	}
+    }
+
+    private void isSprinting()
+    {
+        if (moving && Input.GetKey(KeyCode.LeftShift))
+        {
+            sprinting = true;
+        }
+        else
+        {
+            sprinting = false;
+        }
+
+        if (sprinting)
+        {
+            characterSprinting();
+        }
+    }
+
+    private void characterSprinting()
+    {
+        moveCharacter(sprintSpeed);
+    }
+
+    private void isAttacking()
+    {
+        if(Input.GetKey(KeyCode.Space))
+        {
+            attacking = true;
+        }
+        else
+        {
+            attacking = false;
+        }
+
+        playerAttacks();
+    }
+
+    private void playerAttacks()
+    {
+        anim.SetBool("IsAttacking", attacking);
+    }
 }
