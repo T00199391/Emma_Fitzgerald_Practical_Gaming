@@ -10,14 +10,12 @@ public class ControlEnemy : MonoBehaviour {
     public GameObject target;
     private PlayerHealth playerhealth;
     private EnemyHealth enemyHealth;
-    private Movement usingShield;
 
 
 	// Use this for initialization
 	void Start () {
         playerhealth = FindObjectOfType<PlayerHealth>();
         enemyHealth = FindObjectOfType<EnemyHealth>();
-        usingShield = FindObjectOfType<Movement>();
     }
 	
 	// Update is called once per frame
@@ -59,10 +57,7 @@ public class ControlEnemy : MonoBehaviour {
             }
             if(Input.GetKeyDown(KeyCode.P))
             {
-                if (!usingShield.usingShield())
-                {
-                    playerhealth.isAttacked();
-                }
+                
             }
         }
     }

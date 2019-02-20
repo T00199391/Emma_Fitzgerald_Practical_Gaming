@@ -4,201 +4,128 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    /// <summary>
-    /// the speed at which the character will move at
-    /// </summary>
-    public float movementSpeed = 3;
-    /// <summary>
-    /// the speed at which the character will turn
-    /// </summary>
-    private float turnSpeed=130;
-    /// <summary>
-    /// the speed at which the character will sprint
-    /// </summary>
-    private float sprintSpeed=4;
-    /// <summary>
-    /// the speed at which the character will turn at when sprinting
-    /// </summary>
-    private float sprintTurnSpeed=150;
-
-    Vector3 vec = new Vector3(0, 0, 2);
-    Vector3 vec2 = new Vector3(2, 0, 0);
-
-    public float turningSpeed = 150;
+    private float moveSpeed = 5;
+    private float sprintSpeed = 10;
+    public CharacterController controller;
+    private Vector3 moveDirection;
+    //public Animator anim;
+    public Transform pivot;
+    private float rotateSpeed = 10;
+    public GameObject playerModel;
+    private bool moving = false;
+    private bool sprinting = false;
+    private bool attacking = false;
+    private bool shielding = false;
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        isMoving();
-        //isSpriting();
-        //isDodging();
-        //isAttacking();
-        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
-        transform.Rotate(0, horizontal, 0);
-
-        float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
-        transform.Translate(0, 0, vertical);
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
     }
 
-    /// <summary>
-    /// This will determine if the player is moving and what direction they are moving in
-    /// </summary>
+    // Update is called once per frame
+    void Update()
+    {
+        isMoving();
+        isSprinting();
+        isAttacking();
+        isShielding();
+    }
+
     private void isMoving()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        if (!(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)))
         {
-            moveForward(movementSpeed);
+            moving = true;
         }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        else
         {
-            moveLeft(turnSpeed);
+            moving = false;
+        }
+
+        if (moving)
+        {
+            moveCharacter(moveSpeed);
         }
     }
 
-    /// <summary>
-    /// This will determine if the character is moving
-    /// </summary>
-    private void isSpriting()
+    private void moveCharacter(float speed)
     {
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        moveDirection = (transform.forward * Input.GetAxis("Vertical") * speed) + (transform.right * Input.GetAxis("Horizontal") * speed);
+        moveDirection = moveDirection.normalized * speed;
+
+        //moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, 0f, Input.GetAxis("Vertical") * moveSpeed);
+
+        controller.Move(moveDirection * Time.deltaTime);
+
+        //Move the player is different directions based on camera look direction
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            moveForward(sprintSpeed);
+            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
-        {
-            //moveBack(sprintSpeed);
-        }
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
-        {
-            moveLeft(sprintTurnSpeed);
-        }
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
-        {
-            //moveRight(sprintTurnSpeed);
-        }
+
+        //anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
     }
 
-    /// <summary>
-    /// This will determine if the character is dodging
-    /// </summary>
-    private void isDodging()
+    private void isSprinting()
     {
-        if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Q))
+        if (moving && Input.GetKey(KeyCode.LeftShift))
         {
-            dodgeForward();
+            sprinting = true;
         }
-        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Q))
+        else
         {
-            dodgeBackward();
+            sprinting = false;
         }
-        if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Q))
+
+        if (sprinting)
         {
-            dodgeLeft();
-        }
-        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Q))
-        {
-            dodgeRight();
+            characterSprinting();
         }
     }
 
-    /// <summary>
-    /// This will dtermine what attack the player is doing
-    /// </summary>
+    private void characterSprinting()
+    {
+        moveCharacter(sprintSpeed);
+    }
+
     private void isAttacking()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.Space))
         {
-            attack();
+            attacking = true;
         }
-        if(Input.GetKey(KeyCode.Space))
+        else
         {
-            specialAttack();
+            attacking = false;
         }
+
+        playerAttacks();
     }
 
-    /// <summary>
-    /// will move the character in a forward direction
-    /// </summary>
-    /// <param name="movementSpeed">the speed at which the character will move at</param>
-    private void moveForward(float ms)
+    private void playerAttacks()
     {
-        float horizontal = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;
-        transform.Rotate(0, horizontal, 0);
+        //anim.SetBool("IsAttacking", attacking);
     }
 
-    /// <summary>
-    /// will make the character turn 180 degrees ata a given speed
-    /// </summary>
-    /// <param name="turnSpeed">the speed at which the character will turn</param>
-    //private void moveBack(float ms)
-    //{
-    //    transform.position -= ms * transform.forward * Time.deltaTime;
-    //}
-
-    /// <summary>
-    /// will make the character turn 90 degrees right at a given speed
-    /// </summary>
-    /// <param name="turnSpeed">the speed at which the character will turn</param>
-    //private void moveRight(float ts)
-    //{
-    //    transform.Rotate(Vector3.up, ts * Time.deltaTime);
-    //}
-
-    /// <summary>
-    /// will make the character turn 90 degrees left at a given speed
-    /// </summary>
-    /// <param name="turnSpeed">the speed at which the character will turn</param>
-    private void moveLeft(float ts)
+    private void isShielding()
     {
-        float vertical = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
-        transform.Translate(0, 0, vertical);
+        if(Input.GetKey(KeyCode.E))
+        {
+            shielding = true;
+        }
+        else
+        {
+            shielding = false;
+        }
+
+        playerShield();
     }
 
-    /// <summary>
-    /// will make the character move forward a certain distance to dodge enemy attackes
-    private void dodgeForward()
+    private void playerShield()
     {
-
-    }
-
-    /// <summary>
-    /// will make the character move back a certain distance to dodge enemy attacks
-    private void dodgeBackward()
-    {
-        
-    }
-
-    /// <summary>
-    /// will make the character move right a certain distance to dodge enemy attacks
-    private void dodgeRight()
-    {
-        
-    }
-
-    /// <summary>
-    /// will make the character move left a certain distance to dodge enemy attacks
-    private void dodgeLeft()
-    {
-        
-    }
-
-    /// <summary>
-    /// will make the character swing the weapon they are holding at an enemy or at the eniviornment to break an item
-    /// </summary>
-    private void attack()
-    {
-        
-    }
-
-    /// <summary>
-    /// will let the character do a 360 swing of their sword to hit many enemies at once
-    /// </summary>
-    private void specialAttack()
-    {
-        
+        //anim.SetBool("IsShielding",shielding);
     }
 }
