@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private float sprintSpeed = 10;
     public CharacterController controller;
     private Vector3 moveDirection;
-    //public Animator anim;
+    public Animator anim;
     public Transform pivot;
     private float rotateSpeed = 10;
     public GameObject playerModel;
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
         }
 
-        //anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
     }
 
     private void isSprinting()
