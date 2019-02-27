@@ -54,8 +54,6 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = (transform.forward * Input.GetAxis("Vertical") * speed) + (transform.right * Input.GetAxis("Horizontal") * speed);
         moveDirection = moveDirection.normalized * speed;
 
-        //moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, 0f, Input.GetAxis("Vertical") * moveSpeed);
-
         controller.Move(moveDirection * Time.deltaTime);
 
         //Move the player is different directions based on camera look direction
@@ -93,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void isAttacking()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if(Input.GetMouseButton(0))
         {
             attacking = true;
         }
@@ -102,17 +100,20 @@ public class PlayerMovement : MonoBehaviour
             attacking = false;
         }
 
-        playerAttacks();
+        if(attacking)
+        {
+            playerAttack();
+        }
     }
 
-    private void playerAttacks()
+    private void playerAttack()
     {
-        //anim.SetBool("IsAttacking", attacking);
+        Debug.Log("Attack");
     }
 
     private void isShielding()
     {
-        if(Input.GetKey(KeyCode.E))
+        if(Input.GetMouseButton(1))
         {
             shielding = true;
         }
@@ -121,11 +122,14 @@ public class PlayerMovement : MonoBehaviour
             shielding = false;
         }
 
-        playerShield();
+        if(shielding)
+        {
+            playerShield();
+        }
     }
 
     private void playerShield()
     {
-        //anim.SetBool("IsShielding",shielding);
+        Debug.Log("Shield");
     }
 }
