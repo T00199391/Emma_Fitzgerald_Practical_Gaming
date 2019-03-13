@@ -10,8 +10,9 @@ public class CameraControl : MonoBehaviour {
     public float rotateSpeed;
     public Transform pivot;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         if (!useOffsetValues)
         {
             offset = target.position - transform.position;
@@ -21,10 +22,11 @@ public class CameraControl : MonoBehaviour {
         pivot.transform.parent = null;
 
         Cursor.lockState = CursorLockMode.Locked;
-	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         pivot.transform.position = target.transform.position;
         //Get the x position of the mouse and rotate the target
