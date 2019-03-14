@@ -8,13 +8,11 @@ public class ControlEnemy : MonoBehaviour {
     float disBetween;
     public Transform enemy;
     public GameObject target;
-    private PlayerHealth playerhealth;
     private EnemyHealth enemyHealth;
 
 
 	// Use this for initialization
 	void Start () {
-        playerhealth = FindObjectOfType<PlayerHealth>();
         enemyHealth = FindObjectOfType<EnemyHealth>();
     }
 	

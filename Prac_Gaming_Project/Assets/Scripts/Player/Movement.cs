@@ -120,7 +120,7 @@ public class Movement : MonoBehaviour {
         {
             RaycastHit hit;
             Ray myRay = new Ray(rayObject.position, rayObject.forward);
-            if (Physics.Raycast(myRay, out hit,90))
+            if (Physics.Raycast(myRay, out hit,1.5f))
             {
                 Debug.DrawLine(myRay.origin, hit.point, Color.red);
                 if(hit.collider.tag == "Enemy")
