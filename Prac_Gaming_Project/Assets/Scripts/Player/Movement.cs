@@ -15,10 +15,11 @@ public class Movement : MonoBehaviour {
     private bool attacking = false;
     private bool shielding = false;
     public Transform rayObject;
+    EnemyHealth enemyHealth;
 
     // Use this for initialization
     void Start () {
-		
+        enemyHealth = gameObject.GetComponent<EnemyHealth>();
 	}
 	
 	// Update is called once per frame
@@ -99,7 +100,7 @@ public class Movement : MonoBehaviour {
 
     private void isAttacking()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             attacking = true;
         }
@@ -108,10 +109,15 @@ public class Movement : MonoBehaviour {
             attacking = false;
         }
 
-        if (attacking)
+        if (attack())
         {
             playerAttack();
         }
+    }
+
+    public bool attack()
+    {
+        return attacking;
     }
 
     private void playerAttack()
@@ -126,6 +132,7 @@ public class Movement : MonoBehaviour {
                 if(hit.collider.tag == "Enemy")
                 {
                     Debug.Log("Attack");
+                    enemyHealth.enemyLossHealth();
                 }
             }
         }   
@@ -133,7 +140,7 @@ public class Movement : MonoBehaviour {
 
     private void isShielding()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             shielding = true;
         }

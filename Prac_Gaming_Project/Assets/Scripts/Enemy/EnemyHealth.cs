@@ -1,46 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour {
 
-    private int health = 100;
-    Text healthText;
-    RectTransform position;
+    private int currentHealth = 100;
+    private int minHealth = 0;
+    private Movement playerAttack;
+    private int attackePower;
+    Weapons weapon;
+    private bool enemyDead = false;
 
-    // Use this for initialization
-    void Start () {
-        healthText = gameObject.GetComponentInChildren<Text>();
-        position = healthText.GetComponentInChildren<RectTransform>();
-        setPosition(481, 274, 0);
-        healthText.text = health.ToString();
-    }
+	// Use this for initialization
+	void Start () {
+        playerAttack = gameObject.GetComponent<Movement>();
+        weapon = gameObject.GetComponent<Weapons>();
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
-    public void setPosition(int x, int y, int z)
+    public void enemyLossHealth()
     {
-        Vector3 distance = new Vector3(x, y, z);
-        position.Translate(distance);
-    }
-
-    public void isAttacked()
-    {
-        health -= 20;
-        healthText.text = health.ToString();
-    }
-
-    public bool isDead()
-    {
-        if (health <= 0)
+        healthToLoss(weapon.currentWeapon());
+        if(playerAttack.attack() && !enemyDead)
         {
-            return true;
+            currentHealth -= attackePower;
+            Debug.Log(currentHealth);
         }
-        else
-            return false;
+
+        if(currentHealth == minHealth)
+        {
+            enemyDead = true;
+            isDead();
+        }
+    }
+
+    private void isDead()
+    {
+        if(enemyDead)
+        {
+            Debug.Log("Enemy Died");
+        }
+    }
+
+    private void healthToLoss(char weapon)
+    {
+        switch(weapon)
+        {
+            case 'W':
+                attackePower = 5;
+                break;
+            case 'C':
+                attackePower = 10;
+                break;
+            case 'S':
+                attackePower = 15;
+                break;
+            case 'G':
+                attackePower = 20;
+                break;
+            case 'I':
+                attackePower = 25;
+                break;
+            default:
+                attackePower = 0;
+                break;
+        }
     }
 }
