@@ -4,17 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapons : MonoBehaviour {
-    ArrayList weapons = new ArrayList();
-    private int playerLevel = 21;
-    EnemyHealth enemyHealth;
+    ArrayList weapons = new ArrayList() { "W", "C", "S", "G", "I" };
+    private int playerLevel;
 
 	// Use this for initialization
 	void Start () {
-        weapons.Add("W");
-        weapons.Add("C");
-        weapons.Add("S");
-        weapons.Add("G");
-        weapons.Add("I");
+        
+        
     }
 	
 	// Update is called once per frame
@@ -22,6 +18,7 @@ public class Weapons : MonoBehaviour {
 		
 	}
 
+    //checks what level the player is and determines what weapon they are using
     public char currentWeapon()
     {
         char currentWeapon = ' ';
@@ -48,5 +45,10 @@ public class Weapons : MonoBehaviour {
         }
 
         return currentWeapon;
+    }
+
+    public void currentLevel(int level)
+    {
+        playerLevel = level;
     }
 }

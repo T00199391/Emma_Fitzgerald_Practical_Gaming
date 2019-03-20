@@ -30,6 +30,7 @@ public class Movement : MonoBehaviour {
         isShielding();
     }
 
+    //checks to seee if the character is moving
     private void isMoving()
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
@@ -48,6 +49,7 @@ public class Movement : MonoBehaviour {
         }
     }
 
+    //determines which direction the character is moving in
     private void moveCharacter(float speed)
     {
         if (Input.GetKey(KeyCode.W))
@@ -74,6 +76,7 @@ public class Movement : MonoBehaviour {
         anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
     }
 
+    //checks to see if the character is sprinting 
     private void isSprinting()
     {
         if (moving && Input.GetKey(KeyCode.LeftShift))
@@ -93,11 +96,13 @@ public class Movement : MonoBehaviour {
         }
     }
 
+    //changes the speed at which the character moves at
     private void characterSprinting()
     {
         moveCharacter(sprintSpeed);
     }
 
+    //checks to see if the character is attacking
     private void isAttacking()
     {
         if (Input.GetMouseButtonDown(0))
@@ -119,7 +124,8 @@ public class Movement : MonoBehaviour {
     {
         return attacking;
     }
-
+    
+    //determines if the player can attack by checking if the character is shielding first
     private void playerAttack()
     {
         if(!shielding)
@@ -138,6 +144,7 @@ public class Movement : MonoBehaviour {
         }   
     }
 
+    //chechs to see if the character is shielding
     private void isShielding()
     {
         if (Input.GetMouseButtonDown(1))
@@ -154,6 +161,7 @@ public class Movement : MonoBehaviour {
             playerShield();
         }
     }
+
 
     private void playerShield()
     {
