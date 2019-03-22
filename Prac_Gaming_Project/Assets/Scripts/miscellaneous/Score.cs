@@ -14,10 +14,6 @@ public class Score : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Space))
-        {
-            currentScore++;
-        }
-        scoreText.text = "Score: " + currentScore;
+		scoreText.text = "Score: " + currentScore;
     }
 }
