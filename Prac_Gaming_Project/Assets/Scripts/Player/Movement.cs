@@ -108,10 +108,12 @@ public class Movement : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             attacking = true;
+            anim.SetBool("Attacking", true);
         }
         else
         {
             attacking = false;
+            anim.SetBool("Attacking", false);
         }
 
         if (attack())
@@ -150,10 +152,12 @@ public class Movement : MonoBehaviour {
         if (Input.GetMouseButtonDown(1))
         {
             shielding = true;
+            anim.SetBool("Shielding", true);
         }
         else
         {
             shielding = false;
+            anim.SetBool("Shielding", false);
         }
 
         if (shielding)

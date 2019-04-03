@@ -1,0 +1,9 @@
+Stuff needed for game:
+AI
+Observer Pattern
+Need to implement character from 3d animation course
+Need to have smooth character movement
+Need to find new character model for game
+Need to find character for enemies
+Import swords and shields from 3d animation
+Deadline: April 10th ish :D

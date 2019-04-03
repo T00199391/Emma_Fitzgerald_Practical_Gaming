@@ -8,43 +8,53 @@ public class Armor : MonoBehaviour {
     ArrayList armor = new ArrayList() { "W", "C", "S", "G", "I" };
     private int playerLevel;
     Levelling level;
+    PlayerInfo info;
+    private int defence = 5;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         level = gameObject.GetComponent<Levelling>();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        playerLevel = level.playersLevel();
+        info = gameObject.GetComponent<PlayerInfo>();
     }
 
-    //checks what level the player is and determines what armor they are using
-    public char currentShield()
+    // Update is called once per frame
+    void Update()
     {
-        char currentWeapon = ' ';
+        //playerLevel = level.playersLevel();
+        //info.getArmorInfo(defence);
+    }
+
+    //checks what level the player is and determines what weapon they are using
+    public char currentArmor()
+    {
+        char currentArmor = ' ';
 
         if (playerLevel > 0 && playerLevel < 5)
         {
-            currentWeapon = Convert.ToChar(armor[0]);
+            currentArmor = Convert.ToChar(armor[0]);
         }
         else if (playerLevel >= 5 && playerLevel < 10)
         {
-            currentWeapon = Convert.ToChar(armor[1]);
+            currentArmor = Convert.ToChar(armor[1]);
+            defence = 10;
         }
         else if (playerLevel >= 10 && playerLevel < 15)
         {
-            currentWeapon = Convert.ToChar(armor[2]);
+            currentArmor = Convert.ToChar(armor[2]);
+            defence = 15;
         }
         else if (playerLevel >= 15 && playerLevel < 20)
         {
-            currentWeapon = Convert.ToChar(armor[3]);
+            currentArmor = Convert.ToChar(armor[3]);
+            defence = 20;
         }
         else
         {
-            currentWeapon = Convert.ToChar(armor[4]);
+            currentArmor = Convert.ToChar(armor[4]);
+            defence = 25;
         }
 
-        return currentWeapon;
+        return currentArmor;
     }
 }
