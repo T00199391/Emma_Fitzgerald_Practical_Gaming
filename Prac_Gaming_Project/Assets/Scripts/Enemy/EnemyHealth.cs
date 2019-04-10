@@ -7,14 +7,16 @@ public class EnemyHealth : MonoBehaviour {
     private int currentHealth = 100;
     private int minHealth = 0;
     private Movement playerAttack;
-    private int attackePower;
+    private int attackPower;
     Weapons weapon;
     private bool enemyDead = false;
+    public Animator anim;
 
 	// Use this for initialization
 	void Start () {
         playerAttack = gameObject.GetComponent<Movement>();
         weapon = gameObject.GetComponent<Weapons>();
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -26,7 +28,7 @@ public class EnemyHealth : MonoBehaviour {
         healthToLoss(weapon.currentWeapon());
         if(playerAttack.attack() && !enemyDead)
         {
-            currentHealth -= attackePower;
+            currentHealth -= attackPower;
             Debug.Log(currentHealth);
         }
 
@@ -42,6 +44,7 @@ public class EnemyHealth : MonoBehaviour {
         if(enemyDead)
         {
             Debug.Log("Enemy Died");
+            anim.SetBool("dead", true);
         }
     }
 
@@ -50,22 +53,22 @@ public class EnemyHealth : MonoBehaviour {
         switch(weapon)
         {
             case 'W':
-                attackePower = 5;
+                attackPower = 5;
                 break;
             case 'C':
-                attackePower = 10;
+                attackPower = 10;
                 break;
             case 'S':
-                attackePower = 15;
+                attackPower = 15;
                 break;
             case 'G':
-                attackePower = 20;
+                attackPower = 20;
                 break;
             case 'I':
-                attackePower = 25;
+                attackPower = 25;
                 break;
             default:
-                attackePower = 0;
+                attackPower = 0;
                 break;
         }
     }
