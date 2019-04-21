@@ -27,7 +27,6 @@ public class CameraControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
         pivot.transform.position = target.transform.position;
         //Get the x position of the mouse and rotate the target
         float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
