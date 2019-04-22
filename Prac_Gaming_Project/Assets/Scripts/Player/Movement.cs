@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour {
 
-    private float moveSpeed = 5;
-    private float sprintSpeed = 7;
+    private float moveSpeed = 10;
+    private float sprintSpeed = 15;
     public GameObject cameraMove;
     private Vector3 moveDirection;
     public Animator anim;
@@ -16,6 +17,9 @@ public class Movement : MonoBehaviour {
     private bool shielding = false;
     public Transform rayObject;
     EnemyHealth enemyHealth;
+    float timeTaken = 1f;
+    private bool paused = false;
+    public Text gameOver;
 
     // Use this for initialization
     void Start () {
@@ -24,6 +28,12 @@ public class Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            paused = !paused;
+            Debug.Log(paused);
+        }
+
         isMoving();
         isSprinting();
         isAttacking();
@@ -52,47 +62,53 @@ public class Movement : MonoBehaviour {
     //determines which direction the character is moving in
     private void moveCharacter(float speed)
     {
-        if (Input.GetKey(KeyCode.W))
+        if (!attacking && timeTaken == 1 && !paused && gameOver.text == "")
         {
-            transform.position += speed * transform.forward * Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            transform.Rotate(0, 180, 0);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position += speed * transform.forward * Time.deltaTime;
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                transform.position += speed * transform.forward * Time.deltaTime;
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                transform.Rotate(0, 180, 0);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.position += speed * transform.forward * Time.deltaTime;
+            }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(Vector3.up, -rotateSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(Vector3.up, -rotateSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
+            }
+            anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
         }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
-        }
-        anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
     }
 
     //checks to see if the character is sprinting 
     private void isSprinting()
     {
-        if (moving && Input.GetKey(KeyCode.LeftShift))
+        if (!attacking && timeTaken == 1 && !paused)
         {
-            sprinting = true;
-            anim.SetBool("Sprinting", true);
-        }
-        else
-        {
-            sprinting = false;
-            anim.SetBool("Sprinting", false);
-        }
+            if (moving && Input.GetKey(KeyCode.LeftShift))
+            {
+                sprinting = true;
+                anim.SetBool("Sprinting", sprinting);
+            }
+            else
+            {
+                sprinting = false;
+                anim.SetBool("Sprinting", sprinting);
+            }
 
-        if (sprinting)
-        {
-            characterSprinting();
+            if (sprinting)
+            {
+                characterSprinting();
+            }
         }
     }
 
@@ -105,15 +121,24 @@ public class Movement : MonoBehaviour {
     //checks to see if the character is attacking
     private void isAttacking()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && timeTaken == 1 && !shielding && !paused)
         {
             attacking = true;
-            anim.SetBool("Attacking", true);
+            anim.SetBool("Attacking", attacking);
+            timeTaken -= 0.7f;
         }
         else
         {
+            if(timeTaken < 1)
+            {
+                timeTaken += Time.deltaTime;
+            }
+            else if(timeTaken >= 1)
+            {
+                timeTaken = 1f;
+            }
             attacking = false;
-            anim.SetBool("Attacking", false);
+            anim.SetBool("Attacking", attacking);
         }
 
         if (attack())
@@ -149,15 +174,24 @@ public class Movement : MonoBehaviour {
     //chechs to see if the character is shielding
     private void isShielding()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && timeTaken == 1 && !attacking && !paused)
         {
             shielding = true;
-            anim.SetBool("Shielding", true);
+            anim.SetBool("Shielding", shielding);
+            timeTaken -= 0.7f;
         }
         else
         {
+            if (timeTaken < 1)
+            {
+                timeTaken += Time.deltaTime;
+            }
+            else if (timeTaken >= 1)
+            {
+                timeTaken = 1f;
+            }
             shielding = false;
-            anim.SetBool("Shielding", false);
+            anim.SetBool("Shielding", shielding);
         }
 
         if (shielding)

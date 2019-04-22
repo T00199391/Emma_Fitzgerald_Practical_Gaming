@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneSwitcher : MonoBehaviour
-{
-    //https://loekvandenouweland.com/content/use-unity-button-to-change-between-scenes.html
-    public void GotoGameScene()
+public class SceneSwitcher : MonoBehaviour{
+
+    private ChangeText textChange;
+
+    void Start()
     {
-        SceneManager.LoadScene("Game");
+        textChange = GetComponent<ChangeText>();
+    }
+
+    //https://loekvandenouweland.com/content/use-unity-button-to-change-between-scenes.html
+    public void GotoFightScene()
+    {
+        textChange.changeText();
+        SceneManager.LoadScene("FightArea");
     }
 
     public void GotoControlScene()
