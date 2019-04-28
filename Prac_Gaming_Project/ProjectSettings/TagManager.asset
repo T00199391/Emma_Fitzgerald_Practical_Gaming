@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Health
   - Enemy
+  - Fighter
+  - waypoint
   layers:
   - Default
   - TransparentFX
