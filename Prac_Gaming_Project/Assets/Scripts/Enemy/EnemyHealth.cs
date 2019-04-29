@@ -4,72 +4,40 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
 
-    private int currentHealth = 100;
-    private int minHealth = 0;
-    private Movement playerAttack;
-    private int attackPower;
-    Weapons weapon;
-    private bool enemyDead = false;
+    int minHeaalth = 0;
+    int currentHealth = 50;
+    public Score score;
     public Animator anim;
+    private bool isDead = false;
+    private float timer = 1.5f;
 
-	// Use this for initialization
-	void Start () {
-        playerAttack = gameObject.GetComponent<Movement>();
-        weapon = gameObject.GetComponent<Weapons>();
-        anim = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
-
-    public void enemyLossHealth()
+    private void Update()
     {
-        healthToLoss(weapon.currentWeapon());
-        if(playerAttack.attack() && !enemyDead)
+        if(isDead)
         {
-            currentHealth -= attackPower;
-            Debug.Log(currentHealth);
+            timer -= Time.deltaTime;
         }
 
-        if(currentHealth == minHealth)
+        if (timer <= 0)
         {
-            enemyDead = true;
-            isDead();
+            Destroy(this.gameObject);
+            timer = 1.5f;
         }
     }
 
-    private void isDead()
+    public void healthDecrease()
     {
-        if(enemyDead)
-        {
-            Debug.Log("Enemy Died");
-            anim.SetBool("dead", true);
-        }
+        currentHealth -= 10;
+        enemyDied();
     }
 
-    private void healthToLoss(char weapon)
+    private void enemyDied()
     {
-        switch(weapon)
+        if(currentHealth == minHeaalth)
         {
-            case 'W':
-                attackPower = 5;
-                break;
-            case 'C':
-                attackPower = 10;
-                break;
-            case 'S':
-                attackPower = 15;
-                break;
-            case 'G':
-                attackPower = 20;
-                break;
-            case 'I':
-                attackPower = 25;
-                break;
-            default:
-                attackPower = 0;
-                break;
+            anim.SetBool("Dead", true);
+            score.scoreIncrease();
+            isDead = true;
         }
     }
 }

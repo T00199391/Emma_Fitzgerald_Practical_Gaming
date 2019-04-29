@@ -15,6 +15,8 @@ public class GoblinAI : MonoBehaviour {
 
     private EnemyController slider;
 
+    public Movement shield;
+
     public GameObject GetPlayer()
     {
         return player;
@@ -34,19 +36,22 @@ public class GoblinAI : MonoBehaviour {
 
     public void StartAttacking()
     {
-        if(timer <= 2 && timer > 0)
+        if (shield.playerShield() == false)
         {
-            timer -= Time.deltaTime;
-        }
+            if (timer <= 2 && timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
 
-        if (timer >= 1.47655 && timer <= 1.5)
-        {
-            slider.playerHealthDecrease(5);
-        }
+            if (timer >= 1.47 && timer <= 1.5)
+            {
+                slider.playerHealthDecrease(5);
+            }
 
-        if(timer <= 0)
-        {
-            timer = 2f;
+            if (timer <= 0)
+            {
+                timer = 2f;
+            }
         }
     }
 

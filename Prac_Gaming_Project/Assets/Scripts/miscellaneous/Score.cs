@@ -16,4 +16,9 @@ public class Score : MonoBehaviour {
 	void Update () {
 		scoreText.text = "Score: " + currentScore;
     }
+
+    public void scoreIncrease()
+    {
+        currentScore += 100;
+    }
 }

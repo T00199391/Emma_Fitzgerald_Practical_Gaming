@@ -16,14 +16,14 @@ public class Movement : MonoBehaviour {
     private bool attacking = false;
     private bool shielding = false;
     public Transform rayObject;
-    EnemyHealth enemyHealth;
     float timeTaken = 1f;
     private bool paused = false;
     public Text gameOver;
+    public EnemyHealth enemy;
 
     // Use this for initialization
     void Start () {
-        enemyHealth = gameObject.GetComponent<EnemyHealth>();
+        
 	}
 	
 	// Update is called once per frame
@@ -159,13 +159,13 @@ public class Movement : MonoBehaviour {
         {
             RaycastHit hit;
             Ray myRay = new Ray(rayObject.position, rayObject.forward);
-            if (Physics.Raycast(myRay, out hit,1.5f))
+            if (Physics.Raycast(myRay, out hit,10f))
             {
                 Debug.DrawLine(myRay.origin, hit.point, Color.red);
                 if(hit.collider.tag == "Enemy")
                 {
-                    Debug.Log("Attack");
-                    enemyHealth.enemyLossHealth();
+                    //Debug.Log("Attack");
+                    enemy.healthDecrease();
                 }
             }
         }   
@@ -201,8 +201,8 @@ public class Movement : MonoBehaviour {
     }
 
 
-    private void playerShield()
+    public bool playerShield()
     {
-        Debug.Log("Shield");
+        return shielding;
     }
 }
