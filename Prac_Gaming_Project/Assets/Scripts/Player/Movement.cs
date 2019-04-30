@@ -34,14 +34,17 @@ public class Movement : MonoBehaviour {
             Debug.Log(paused);
         }
 
-        isMoving();
-        isSprinting();
-        isAttacking();
-        isShielding();
+        if(!paused)
+        {
+            IsMoving();
+            IsSprinting();
+            IsAttacking();
+            IsShielding();
+        }
     }
 
     //checks to seee if the character is moving
-    private void isMoving()
+    private void IsMoving()
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
         {
@@ -55,14 +58,14 @@ public class Movement : MonoBehaviour {
 
         if (moving)
         { 
-            moveCharacter(moveSpeed);
+            MoveCharacter(moveSpeed);
         }
     }
 
     //determines which direction the character is moving in
-    private void moveCharacter(float speed)
+    private void MoveCharacter(float speed)
     {
-        if (!attacking && timeTaken == 1 && !paused && gameOver.text == "")
+        if (!attacking && timeTaken == 1 && gameOver.text == "")
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -90,9 +93,9 @@ public class Movement : MonoBehaviour {
     }
 
     //checks to see if the character is sprinting 
-    private void isSprinting()
+    private void IsSprinting()
     {
-        if (!attacking && timeTaken == 1 && !paused)
+        if (!attacking && timeTaken == 1)
         {
             if (moving && Input.GetKey(KeyCode.LeftShift))
             {
@@ -107,21 +110,21 @@ public class Movement : MonoBehaviour {
 
             if (sprinting)
             {
-                characterSprinting();
+                CharacterSprinting();
             }
         }
     }
 
     //changes the speed at which the character moves at
-    private void characterSprinting()
+    private void CharacterSprinting()
     {
-        moveCharacter(sprintSpeed);
+        MoveCharacter(sprintSpeed);
     }
 
     //checks to see if the character is attacking
-    private void isAttacking()
+    private void IsAttacking()
     {
-        if (Input.GetMouseButtonDown(0) && timeTaken == 1 && !shielding && !paused)
+        if (Input.GetMouseButtonDown(0) && timeTaken == 1 && !shielding)
         {
             attacking = true;
             anim.SetBool("Attacking", attacking);
@@ -141,19 +144,19 @@ public class Movement : MonoBehaviour {
             anim.SetBool("Attacking", attacking);
         }
 
-        if (attack())
+        if (Attack())
         {
-            playerAttack();
+            PlayerAttack();
         }
     }
 
-    public bool attack()
+    public bool Attack()
     {
         return attacking;
     }
     
     //determines if the player can attack by checking if the character is shielding first
-    private void playerAttack()
+    private void PlayerAttack()
     {
         if(!shielding)
         {
@@ -172,9 +175,9 @@ public class Movement : MonoBehaviour {
     }
 
     //chechs to see if the character is shielding
-    private void isShielding()
+    private void IsShielding()
     {
-        if (Input.GetMouseButtonDown(1) && timeTaken == 1 && !attacking && !paused)
+        if (Input.GetMouseButtonDown(1) && timeTaken == 1 && !attacking)
         {
             shielding = true;
             anim.SetBool("Shielding", shielding);
@@ -196,12 +199,12 @@ public class Movement : MonoBehaviour {
 
         if (shielding)
         {
-            playerShield();
+            PlayerShield();
         }
     }
 
 
-    public bool playerShield()
+    public bool PlayerShield()
     {
         return shielding;
     }

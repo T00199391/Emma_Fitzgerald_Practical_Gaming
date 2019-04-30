@@ -10,12 +10,6 @@ public class CameraControl : MonoBehaviour {
     public float rotateSpeed;
     public Transform pivot;
 
-
-    private void Awake()
-    {
-        //target = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
     // Use this for initialization
     void Start()
     {

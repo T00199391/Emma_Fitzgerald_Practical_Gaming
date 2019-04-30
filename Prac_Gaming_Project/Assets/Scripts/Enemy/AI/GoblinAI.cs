@@ -36,7 +36,7 @@ public class GoblinAI : MonoBehaviour {
 
     public void StartAttacking()
     {
-        if (shield.playerShield() == false)
+        if (shield.PlayerShield() == false)
         {
             if (timer <= 2 && timer > 0)
             {

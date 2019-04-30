@@ -13,7 +13,7 @@ public class SceneSwitcher : MonoBehaviour{
     //https://loekvandenouweland.com/content/use-unity-button-to-change-between-scenes.html
     public void GotoFightScene()
     {
-        textChange.changeText();
+        textChange.TextChange();
         SceneManager.LoadScene("FightArea");
     }
 

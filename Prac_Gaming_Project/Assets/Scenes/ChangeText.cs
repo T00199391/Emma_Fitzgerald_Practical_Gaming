@@ -9,7 +9,7 @@ public class ChangeText : MonoBehaviour {
     public Text start;
     public Text control;
 
-    public void changeText()
+    public void TextChange()
     {
         loading.text = "Loading...";
         start.text = "";
