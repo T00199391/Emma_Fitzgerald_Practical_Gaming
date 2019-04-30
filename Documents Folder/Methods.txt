@@ -9,6 +9,7 @@ PlayerAttack() - will check to see if the player is shielding. If the player is 
 Attack() - return thats that the pplayer is attacking
 IsShielding() - determines if the player is pressing the right mouse button. If the button is pressed the shielding will be set to true
 PlayerShield() - 
+IsDead() - will cheack to see if the player has health. if not then the animation for the player will chanhe and the game over title will show
 
 ImageResizing Script:
 Start() - will get the RectTranform for the canvas and the image on the canvas
@@ -34,6 +35,7 @@ EnemyDied() - will check to see if the current health of the enemy is greater th
 
 EnemyController():
 PlayerHealthDecrease() - will decrese the value of the health slider for the player
+PlayerDied() - will check to see if the player has health. if not then the animation for the enemy will change
 
 Patrol,Chase,Attack,NPCBaseFSM Scritps:
 Control the animation for the enemy

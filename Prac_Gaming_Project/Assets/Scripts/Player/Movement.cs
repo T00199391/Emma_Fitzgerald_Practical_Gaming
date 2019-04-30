@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour {
     private bool paused = false;
     public Text gameOver;
     public EnemyHealth enemy;
+    public Slider health;
 
     // Use this for initialization
     void Start () {
@@ -40,6 +41,7 @@ public class Movement : MonoBehaviour {
             IsSprinting();
             IsAttacking();
             IsShielding();
+            IsDead();
         }
     }
 
@@ -167,7 +169,6 @@ public class Movement : MonoBehaviour {
                 Debug.DrawLine(myRay.origin, hit.point, Color.red);
                 if(hit.collider.tag == "Enemy")
                 {
-                    //Debug.Log("Attack");
                     enemy.HealthDecrease();
                 }
             }
@@ -177,29 +178,34 @@ public class Movement : MonoBehaviour {
     //chechs to see if the character is shielding
     private void IsShielding()
     {
-        if (Input.GetMouseButtonDown(1) && timeTaken == 1 && !attacking)
-        {
-            shielding = true;
-            anim.SetBool("Shielding", shielding);
-            timeTaken -= 0.7f;
-        }
-        else
-        {
-            if (timeTaken < 1)
-            {
-                timeTaken += Time.deltaTime;
-            }
-            else if (timeTaken >= 1)
-            {
-                timeTaken = 1f;
-            }
-            shielding = false;
-            anim.SetBool("Shielding", shielding);
-        }
+        //if (Input.GetMouseButtonDown(1) && timeTaken == 1 && !attacking)
+        //{
+        //    shielding = true;
+        //    anim.SetBool("Shielding", shielding);
+        //    timeTaken -= 0.7f;
+        //}
+        //else
+        //{
+        //    if (timeTaken < 1)
+        //    {
+        //        timeTaken += Time.deltaTime;
+        //    }
+        //    else if (timeTaken >= 1)
+        //    {
+        //        timeTaken = 1f;
+        //    }
+        //    shielding = false;
+        //    anim.SetBool("Shielding", shielding);
+        //}
 
-        if (shielding)
+        //if (shielding)
+        //{
+        //    PlayerShield();
+        //}
+
+        if (Input.GetMouseButton(1) && !attacking)
         {
-            PlayerShield();
+            
         }
     }
 
@@ -207,5 +213,14 @@ public class Movement : MonoBehaviour {
     public bool PlayerShield()
     {
         return shielding;
+    }
+
+    private void IsDead()
+    {
+        if(health.value == 0)
+        {
+            anim.SetBool("Dead", true);
+            gameOver.text = "Game Over";
+        }
     }
 }

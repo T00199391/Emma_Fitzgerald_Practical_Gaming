@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour {
 
     public Slider slider;
+    public Animator anim;
 
 	// Use this for initialization
 	void Start () {
@@ -14,11 +15,19 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        PlayerDied();
 	}
 
     public void PlayerHealthDecrease(int value)
     {
         slider.value -= value;
+    }
+
+    private void PlayerDied()
+    {
+        if(slider.value == 0)
+        {
+            anim.SetBool("Won", true);
+        }
     }
 }
