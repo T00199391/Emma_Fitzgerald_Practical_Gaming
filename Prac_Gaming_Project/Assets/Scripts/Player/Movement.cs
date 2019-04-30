@@ -168,7 +168,7 @@ public class Movement : MonoBehaviour {
                 if(hit.collider.tag == "Enemy")
                 {
                     //Debug.Log("Attack");
-                    enemy.healthDecrease();
+                    enemy.HealthDecrease();
                 }
             }
         }   

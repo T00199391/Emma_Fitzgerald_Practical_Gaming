@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour {
         
 	}
 
-    public void playerHealthDecrease(int value)
+    public void PlayerHealthDecrease(int value)
     {
         slider.value -= value;
     }

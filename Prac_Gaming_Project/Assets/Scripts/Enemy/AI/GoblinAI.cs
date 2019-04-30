@@ -45,7 +45,7 @@ public class GoblinAI : MonoBehaviour {
 
             if (timer >= 1.47 && timer <= 1.5)
             {
-                slider.playerHealthDecrease(5);
+                slider.PlayerHealthDecrease(5);
             }
 
             if (timer <= 0)

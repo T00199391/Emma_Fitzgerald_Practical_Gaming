@@ -32,13 +32,13 @@ public class Timer : MonoBehaviour {
 
             if (timer <= 0)
             {
-                gameOver();
+                GameOver();
                 timerText.text = "";
             }
         }
 	}
 
-    private void gameOver()
+    private void GameOver()
     {
         anim.SetBool("GameOver", true);
         gameOverText.text = "Game Over";

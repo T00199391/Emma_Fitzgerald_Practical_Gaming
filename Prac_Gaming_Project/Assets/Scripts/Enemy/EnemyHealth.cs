@@ -25,18 +25,18 @@ public class EnemyHealth : MonoBehaviour {
         }
     }
 
-    public void healthDecrease()
+    public void HealthDecrease()
     {
         currentHealth -= 10;
-        enemyDied();
+        EnemyDied();
     }
 
-    private void enemyDied()
+    private void EnemyDied()
     {
         if(currentHealth == minHeaalth)
         {
             anim.SetBool("Dead", true);
-            score.scoreIncrease();
+            score.ScoreIncrease();
             isDead = true;
         }
     }
