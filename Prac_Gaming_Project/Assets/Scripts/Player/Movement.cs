@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour {
     private bool attacking = false;
     private bool shielding = false;
     public Transform rayObject;
+    public Transform healthRay;
     float timeTaken = 1f;
     private bool paused = false;
     public Text gameOver;
@@ -42,6 +43,7 @@ public class Movement : MonoBehaviour {
             IsAttacking();
             IsShielding();
             IsDead();
+            ItemPickup();
         }
     }
 
@@ -67,7 +69,7 @@ public class Movement : MonoBehaviour {
     //determines which direction the character is moving in
     private void MoveCharacter(float speed)
     {
-        if (!attacking && timeTaken == 1 && gameOver.text == "")
+        if (!attacking && !shielding && timeTaken == 1 && gameOver.text == "")
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -178,38 +180,19 @@ public class Movement : MonoBehaviour {
     //chechs to see if the character is shielding
     private void IsShielding()
     {
-        //if (Input.GetMouseButtonDown(1) && timeTaken == 1 && !attacking)
-        //{
-        //    shielding = true;
-        //    anim.SetBool("Shielding", shielding);
-        //    timeTaken -= 0.7f;
-        //}
-        //else
-        //{
-        //    if (timeTaken < 1)
-        //    {
-        //        timeTaken += Time.deltaTime;
-        //    }
-        //    else if (timeTaken >= 1)
-        //    {
-        //        timeTaken = 1f;
-        //    }
-        //    shielding = false;
-        //    anim.SetBool("Shielding", shielding);
-        //}
-
-        //if (shielding)
-        //{
-        //    PlayerShield();
-        //}
-
-        if (Input.GetMouseButton(1) && !attacking)
+        if (Input.GetMouseButtonDown(1) && !attacking)
         {
-            
+            shielding = true;
+            anim.SetBool("Shielding", shielding);
+        }
+
+        if(Input.GetMouseButtonUp(1))
+        {
+            shielding = false;
+            anim.SetBool("Shielding", shielding);
         }
     }
-
-
+    
     public bool PlayerShield()
     {
         return shielding;
@@ -221,6 +204,28 @@ public class Movement : MonoBehaviour {
         {
             anim.SetBool("Dead", true);
             gameOver.text = "Game Over";
+        }
+    }
+
+    private void ItemPickup()
+    {
+        if(Input.GetKey(KeyCode.E))
+        {
+            anim.SetBool("Item", true);
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            RaycastHit hit;
+            Ray myRay = new Ray(healthRay.position, healthRay.forward);
+            if (Physics.Raycast(myRay, out hit, 10f))
+            {
+                Debug.DrawLine(myRay.origin, hit.point, Color.red);
+                if (hit.collider.tag == "Health")
+                {
+                    Destroy(GameObject.FindWithTag("Health"));
+                }
+            }
         }
     }
 }

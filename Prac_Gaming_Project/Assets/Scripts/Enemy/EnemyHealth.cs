@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour {
     public Animator anim;
     private bool isDead = false;
     private float timer = 1.5f;
+    public GameObject healthPotion;
 
     private void Update()
     {
@@ -38,6 +39,11 @@ public class EnemyHealth : MonoBehaviour {
             anim.SetBool("Dead", true);
             score.ScoreIncrease();
             isDead = true;
+            float x = transform.position.x;
+            float y = transform.position.y;
+            float z = transform.position.z;
+            Vector3 enemyTran = new Vector3(x,y+1,z);
+            Instantiate(healthPotion, enemyTran, Quaternion.identity);
         }
     }
 }

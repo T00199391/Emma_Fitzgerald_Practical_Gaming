@@ -334,7 +334,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 283503301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69.45801, y: 0, z: 0}
+  m_LocalPosition: {x: -1.4000015, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 276664780}
@@ -670,6 +670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 358424765}
   anim: {fileID: 382903891}
+  healthPotion: {fileID: 1292077926489570, guid: 9fc75a1a256a47842b26d52230ca1604,
+    type: 2}
 --- !u!136 &382903894
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1066,6 +1068,16 @@ Prefab:
       propertyPath: health
       value: 
       objectReference: {fileID: 2054702401}
+    - target: {fileID: 114430670960263488, guid: d5d446550ce80cb47a7d167a3e819d6d,
+        type: 2}
+      propertyPath: rayObject2
+      value: 
+      objectReference: {fileID: 1217651208}
+    - target: {fileID: 114430670960263488, guid: d5d446550ce80cb47a7d167a3e819d6d,
+        type: 2}
+      propertyPath: healthRay
+      value: 
+      objectReference: {fileID: 1217651208}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d5d446550ce80cb47a7d167a3e819d6d, type: 2}
   m_IsPrefabParent: 0
@@ -1248,6 +1260,11 @@ Rigidbody:
 --- !u!1 &1217651207 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1049798887333320, guid: d5d446550ce80cb47a7d167a3e819d6d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1028646679}
+--- !u!4 &1217651208 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4334253662848722, guid: d5d446550ce80cb47a7d167a3e819d6d,
     type: 2}
   m_PrefabInternal: {fileID: 1028646679}
 --- !u!114 &1217651210 stripped
@@ -8769,6 +8786,15 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 64270276491379314, guid: 72155466e961db84c8bb5380f26a15ef,
+        type: 2}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750963706529536, guid: 72155466e961db84c8bb5380f26a15ef, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72155466e961db84c8bb5380f26a15ef, type: 2}
   m_IsPrefabParent: 0
@@ -9082,7 +9108,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 283503302}
   m_HandleRect: {fileID: 0}
@@ -9090,7 +9116,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 10
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

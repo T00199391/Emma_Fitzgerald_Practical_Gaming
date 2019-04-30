@@ -7,8 +7,8 @@ CharacterSprinting() - This method calls the moveCharacter() method and passes i
 IsAttacking() - determines if the player presses the left mouse button to attack. If the player presse the button then attacking will be set to true and the attack animation will be triggered. There will be a cool down to how much the player can attack so they cant attack continuously. If attacking is true then it will call the method playerAttack()
 PlayerAttack() - will check to see if the player is shielding. If the player is not shielding then it will create a ray cast to see if the player is near enoung to an enemy to deal damage. If the player is close enough to the enemy it will call the helathDecrease() method from the EnemyHealth script
 Attack() - return thats that the pplayer is attacking
-IsShielding() - determines if the player is pressing the right mouse button. If the button is pressed the shielding will be set to true
-PlayerShield() - 
+IsShielding() - determines if the player is pressing the right mouse button. If the button is pressed the shielding will be set to true and the animation will begin. once the player releases the button shielding will be false and the animation will end
+PlayerShield() - will return shielding 
 IsDead() - will cheack to see if the player has health. if not then the animation for the player will chanhe and the game over title will show
 
 ImageResizing Script:
