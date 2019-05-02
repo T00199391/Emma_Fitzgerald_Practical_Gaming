@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Fighter
   - waypoint
+  - CastleGate
   layers:
   - Default
   - TransparentFX
