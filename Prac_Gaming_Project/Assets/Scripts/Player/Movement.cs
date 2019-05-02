@@ -166,9 +166,8 @@ public class Movement : MonoBehaviour {
         {
             RaycastHit hit;
             Ray myRay = new Ray(rayObject.position, rayObject.forward);
-            if (Physics.Raycast(myRay, out hit,10f))
+            if (Physics.Raycast(myRay, out hit,15f))
             {
-                Debug.DrawLine(myRay.origin, hit.point, Color.red);
                 if(hit.collider.tag == "Enemy")
                 {
                     enemy.HealthDecrease();
@@ -209,21 +208,19 @@ public class Movement : MonoBehaviour {
 
     private void ItemPickup()
     {
-        if(Input.GetKey(KeyCode.E))
-        {
-            anim.SetBool("Item", true);
-        }
+        Vector3 direction = transform.forward;
+        RaycastHit hit;
+        float sphereRadius = 2.5f;
+        float maxDistance = 2.5f;
+        Vector3 origin = transform.position;
 
         if (Input.GetKey(KeyCode.Space))
         {
-            RaycastHit hit;
-            Ray myRay = new Ray(healthRay.position, healthRay.forward);
-            if (Physics.Raycast(myRay, out hit, 10f))
+            if(Physics.SphereCast(origin,sphereRadius,direction,out hit,maxDistance))
             {
-                Debug.DrawLine(myRay.origin, hit.point, Color.red);
-                if (hit.collider.tag == "Health")
+                if(hit.collider.tag == "Health")
                 {
-                    Destroy(GameObject.FindWithTag("Health"));
+                    Destroy(GameObject.FindGameObjectWithTag("Health"));
                 }
             }
         }

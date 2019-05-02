@@ -4,17 +4,37 @@ using UnityEngine;
 
 public class Chase : NPCBaseFSM {
 
-	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    bool paused = false;
+
+    private bool IsPaused()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            paused = !paused;
+        }
+
+        return paused;
+    }
+
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         base.OnStateEnter(animator, stateInfo, layerIndex);
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        //rotate towards target
-        var direction = opponent.transform.position - NPC.transform.position;
-        NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
-        NPC.transform.Translate(0, 0, Time.deltaTime * speed);
+        if(!IsPaused())
+        {
+            Time.timeScale = 1;
+            //rotate towards target
+            var direction = opponent.transform.position - NPC.transform.position;
+            NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+            NPC.transform.Translate(0, 0, Time.deltaTime * speed);
+        }
+        else
+        {
+            Time.timeScale = 0;
+        }
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state

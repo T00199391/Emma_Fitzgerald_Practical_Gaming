@@ -14,7 +14,7 @@ public class SceneSwitcher : MonoBehaviour{
     public void GotoFightScene()
     {
         textChange.TextChange();
-        SceneManager.LoadScene("FightArea");
+        SceneManager.LoadScene("Fight");
     }
 
     public void GotoControlScene()

@@ -35,6 +35,7 @@ public class Patrol : NPCBaseFSM {
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         if (!IsPaused())
         {
+            Time.timeScale = 1;
             if (waypoints.Length == 0) return;
             if (Vector3.Distance(waypoints[currentWP].transform.position, NPC.transform.position) < accuracy)
             {
@@ -49,6 +50,10 @@ public class Patrol : NPCBaseFSM {
             var direction = waypoints[currentWP].transform.position - NPC.transform.position;
             NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
             NPC.transform.Translate(0, 0, Time.deltaTime * speed);
+        }
+        else
+        {
+            Time.timeScale = 0;
         }
 	}
 

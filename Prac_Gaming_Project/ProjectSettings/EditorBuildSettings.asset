@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Controls.unity
     guid: ddce2dd989f9dd3488ec057e165c8086
   - enabled: 1
-    path: Assets/Scenes/FightArea.unity
-    guid: ca6413c25dfb7bb499b59cd4e365b29f
+    path: Assets/Scenes/Fight.unity
+    guid: 3aff6733a7fbc1e45a1e4d0a302970c2
