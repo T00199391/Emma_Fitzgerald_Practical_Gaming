@@ -7,7 +7,7 @@ public class GoblinAI : MonoBehaviour {
 
     Animator anim;
 
-    public GameObject player;
+    private GameObject player;
 
     public static bool isAttacking = false;
 
@@ -15,7 +15,7 @@ public class GoblinAI : MonoBehaviour {
 
     private EnemyController slider;
 
-    public Movement shield;
+    private Movement shield;
 
     public GameObject GetPlayer()
     {
@@ -26,6 +26,8 @@ public class GoblinAI : MonoBehaviour {
 	void Start () {
         anim = GetComponent<Animator>();
         slider = GetComponent<EnemyController>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        shield = player.GetComponent<Movement>();
     }
 	
 	// Update is called once per frame

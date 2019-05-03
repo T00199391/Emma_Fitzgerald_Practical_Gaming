@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
 
-    public Slider slider;
+    private Slider slider;
     public Animator anim;
 
 	// Use this for initialization
 	void Start () {
-		
+        slider = Slider.FindObjectOfType<Slider>();
 	}
 	
 	// Update is called once per frame

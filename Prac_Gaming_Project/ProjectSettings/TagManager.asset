@@ -9,6 +9,7 @@ TagManager:
   - Fighter
   - waypoint
   - CastleGate
+  - Score
   layers:
   - Default
   - TransparentFX

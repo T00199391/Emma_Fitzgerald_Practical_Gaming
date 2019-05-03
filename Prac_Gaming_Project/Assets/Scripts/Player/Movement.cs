@@ -20,14 +20,17 @@ public class Movement : MonoBehaviour {
     float timeTaken = 1f;
     private bool paused = false;
     public Text gameOver;
-    public EnemyHealth enemy;
+    private EnemyHealth enemyHealth;
     public Slider health;
     private Inventory myInventory;
     private Potion potion;
+    private GameObject enemy;
 
     // Use this for initialization
     void Start () {
         myInventory = GetComponent<Inventory>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        enemyHealth = enemy.GetComponent<EnemyHealth>();
     }
 	
 	// Update is called once per frame
@@ -131,7 +134,7 @@ public class Movement : MonoBehaviour {
     //checks to see if the character is attacking
     private void IsAttacking()
     {
-        if (Input.GetMouseButtonDown(0) && timeTaken == 1 && !shielding)
+        if (Input.GetMouseButton(0) && timeTaken == 1 && !shielding)
         {
             attacking = true;
             anim.SetBool("Attacking", attacking);
@@ -173,7 +176,7 @@ public class Movement : MonoBehaviour {
             {
                 if(hit.collider.tag == "Enemy")
                 {
-                    enemy.HealthDecrease();
+                    enemyHealth.HealthDecrease();
                 }
             }
         }   
@@ -237,6 +240,7 @@ public class Movement : MonoBehaviour {
         {
             if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
             {
+                anim.SetTrigger("ItemPickup");
                 if (hit.collider.tag == "Health")
                 {
                     Destroy(GameObject.FindGameObjectWithTag("Health"));

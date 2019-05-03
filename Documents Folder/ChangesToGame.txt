@@ -1,0 +1,6 @@
+In the EnemyController Script the script will now find the slider without having to be the gameobject in in the inspector
+In the GoblinAI script changed it that it will search for the player by the tag "Player" instead of in the inspector putting in the gameobject
+In the GoblinAI script changed it that it will get the componment Movement for the player gameoject intead of puttng it in the instector
+In the EnemyHealth script changed it that the script will find the gameobject with the tag "Score" and then get the score script from that gameobject instead of manually putting the gameobject in the inspector
+In the Movement script changed it that the script will find the the gameobject with the tag "Enemy" an then get the enemyhealth script componment instead of manually putting in the script in the inspector
+In the Movement script changed the attacking button to the left mouse button
