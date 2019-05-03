@@ -22,11 +22,13 @@ public class Movement : MonoBehaviour {
     public Text gameOver;
     public EnemyHealth enemy;
     public Slider health;
+    private Inventory myInventory;
+    private Potion potion;
 
     // Use this for initialization
     void Start () {
-        
-	}
+        myInventory = GetComponent<Inventory>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,6 +46,7 @@ public class Movement : MonoBehaviour {
             IsShielding();
             IsDead();
             ItemPickup();
+            IncreaseHealth();
         }
     }
 
@@ -206,6 +209,21 @@ public class Movement : MonoBehaviour {
         }
     }
 
+    private bool InventoryActive()
+    {
+        bool open = false;
+        if(Input.GetKey(KeyCode.I))
+        {
+            open = true;
+        }
+        else
+        {
+            open = false;
+        }
+
+        return open;
+    }
+
     private void ItemPickup()
     {
         Vector3 direction = transform.forward;
@@ -214,14 +232,28 @@ public class Movement : MonoBehaviour {
         float maxDistance = 2.5f;
         Vector3 origin = transform.position;
 
+
         if (Input.GetKey(KeyCode.Space))
         {
-            if(Physics.SphereCast(origin,sphereRadius,direction,out hit,maxDistance))
+            if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
             {
-                if(hit.collider.tag == "Health")
+                if (hit.collider.tag == "Health")
                 {
                     Destroy(GameObject.FindGameObjectWithTag("Health"));
+                    potion = new Potion("Health");
+                    myInventory.AddTo(potion);
                 }
+            }
+        }
+    }
+
+    public void IncreaseHealth()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (!myInventory.IsNull())
+            {
+                health.value += 20;
             }
         }
     }
