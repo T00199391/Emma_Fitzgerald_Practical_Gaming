@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4131445829106294}
   - component: {fileID: 95099525927671478}
   - component: {fileID: 136706753358377384}
+  - component: {fileID: 114466590673014998}
   m_Layer: 0
   m_Name: HealthPotion 1
   m_TagString: Health
@@ -69,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292077926489570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 158.88968, y: 0.94399625, z: -282.99246}
+  m_LocalPosition: {x: 491.88086, y: 9.34427e-17, z: -103.44785}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 4522331105522722}
@@ -204,6 +205,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114466590673014998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292077926489570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed35e9e902d77b4ab79f0a67729ac2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2
+  interactionTransform: {fileID: 0}
+  item: {fileID: 11400000, guid: 48e348dcd8f29a648801fd706a780af2, type: 2}
 --- !u!136 &136706753358377384
 CapsuleCollider:
   m_ObjectHideFlags: 1

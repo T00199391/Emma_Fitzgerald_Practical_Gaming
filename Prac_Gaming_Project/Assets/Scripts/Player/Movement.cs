@@ -22,13 +22,11 @@ public class Movement : MonoBehaviour {
     public Text gameOver;
     private EnemyHealth enemyHealth;
     public Slider health;
-    private Inventory myInventory;
-    private Potion potion;
     private GameObject enemy;
+    public Interactable focus; 
 
     // Use this for initialization
     void Start () {
-        myInventory = GetComponent<Inventory>();
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         enemyHealth = enemy.GetComponent<EnemyHealth>();
     }
@@ -49,7 +47,6 @@ public class Movement : MonoBehaviour {
             IsShielding();
             IsDead();
             ItemPickup();
-            IncreaseHealth();
         }
     }
 
@@ -231,34 +228,72 @@ public class Movement : MonoBehaviour {
     {
         Vector3 direction = transform.forward;
         RaycastHit hit;
-        float sphereRadius = 2.5f;
-        float maxDistance = 2.5f;
+        float sphereRadius = 2f;
+        float maxDistance = 2f;
         Vector3 origin = transform.position;
 
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
             {
-                anim.SetTrigger("ItemPickup");
-                if (hit.collider.tag == "Health")
+                //anim.SetTrigger("ItemPickup");
+                //if (hit.collider.tag == "Health")
+                //{
+                //    Destroy(GameObject.FindGameObjectWithTag("Health"));
+                //    potion = new Potion("Health");
+                //    myInventory.AddTo(potion);
+                //}
+
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+
+                if (interactable != null)
                 {
-                    Destroy(GameObject.FindGameObjectWithTag("Health"));
-                    potion = new Potion("Health");
-                    myInventory.AddTo(potion);
+                    SetFocus(interactable);
                 }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
+            {
+                //anim.SetTrigger("ItemPickup");
+                //if (hit.collider.tag == "Health")
+                //{
+                //    Destroy(GameObject.FindGameObjectWithTag("Health"));
+                //    potion = new Potion("Health");
+                //    myInventory.AddTo(potion);
+                //}
+
+                RemoveFocus();
             }
         }
     }
 
+    void SetFocus(Interactable newFocus)
+    {
+        if(newFocus != focus)
+        {
+            if(focus != null)
+                focus.OnDefocused();
+
+            focus = newFocus;
+        }
+
+        newFocus.OnFocused(transform);
+    }
+
+    void RemoveFocus()
+    {
+        if(focus != null)
+            focus.OnDefocused();
+
+        focus = null;
+    }
+
     public void IncreaseHealth()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (!myInventory.IsNull())
-            {
-                health.value += 20;
-            }
-        }
+        health.value += 20;
     }
 }
