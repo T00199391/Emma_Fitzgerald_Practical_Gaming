@@ -51,6 +51,7 @@ public class EnemyHealth : MonoBehaviour {
             float z = transform.position.z;
             Vector3 enemyTran = new Vector3(x,y+1,z);
             Instantiate(healthPotion, enemyTran, Quaternion.identity);
+            Destroy(GameObject.FindGameObjectWithTag("CastleGate"));
         }
     }
 }

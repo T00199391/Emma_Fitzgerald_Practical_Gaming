@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour {
     public GameObject cameraMove;
     private Vector3 moveDirection;
     public Animator anim;
+    public Animator chestAnim;
     private float rotateSpeed = 180;
     private bool moving = false;
     private bool sprinting = false;
@@ -23,7 +24,9 @@ public class Movement : MonoBehaviour {
     private EnemyHealth enemyHealth;
     public Slider health;
     private GameObject enemy;
-    public Interactable focus; 
+    public Interactable focus;
+    private bool won = false;
+    private bool open = false;
 
     // Use this for initialization
     void Start () {
@@ -47,6 +50,8 @@ public class Movement : MonoBehaviour {
             IsShielding();
             IsDead();
             ItemPickup();
+            PlayerWon();
+            InventoryActive();
         }
     }
 
@@ -72,7 +77,7 @@ public class Movement : MonoBehaviour {
     //determines which direction the character is moving in
     private void MoveCharacter(float speed)
     {
-        if (!attacking && !shielding && timeTaken == 1 && gameOver.text == "")
+        if (!won && !attacking && !shielding && timeTaken == 1 && gameOver.text == "")
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -102,7 +107,7 @@ public class Movement : MonoBehaviour {
     //checks to see if the character is sprinting 
     private void IsSprinting()
     {
-        if (!attacking && timeTaken == 1)
+        if (!won && !attacking && timeTaken == 1)
         {
             if (moving && Input.GetKey(KeyCode.LeftShift))
             {
@@ -131,7 +136,7 @@ public class Movement : MonoBehaviour {
     //checks to see if the character is attacking
     private void IsAttacking()
     {
-        if (Input.GetMouseButton(0) && timeTaken == 1 && !shielding)
+        if (Input.GetMouseButton(0) && timeTaken == 1 && !shielding && !won && !open)
         {
             attacking = true;
             anim.SetBool("Attacking", attacking);
@@ -182,7 +187,7 @@ public class Movement : MonoBehaviour {
     //chechs to see if the character is shielding
     private void IsShielding()
     {
-        if (Input.GetMouseButtonDown(1) && !attacking)
+        if (Input.GetMouseButtonDown(1) && !attacking && !won)
         {
             shielding = true;
             anim.SetBool("Shielding", shielding);
@@ -211,14 +216,10 @@ public class Movement : MonoBehaviour {
 
     private bool InventoryActive()
     {
-        bool open = false;
-        if(Input.GetKey(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I))
         {
-            open = true;
-        }
-        else
-        {
-            open = false;
+            open = !open;
+            Debug.Log(open);
         }
 
         return open;
@@ -237,14 +238,6 @@ public class Movement : MonoBehaviour {
         {
             if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
             {
-                //anim.SetTrigger("ItemPickup");
-                //if (hit.collider.tag == "Health")
-                //{
-                //    Destroy(GameObject.FindGameObjectWithTag("Health"));
-                //    potion = new Potion("Health");
-                //    myInventory.AddTo(potion);
-                //}
-
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
 
                 if (interactable != null)
@@ -258,14 +251,6 @@ public class Movement : MonoBehaviour {
         {
             if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
             {
-                //anim.SetTrigger("ItemPickup");
-                //if (hit.collider.tag == "Health")
-                //{
-                //    Destroy(GameObject.FindGameObjectWithTag("Health"));
-                //    potion = new Potion("Health");
-                //    myInventory.AddTo(potion);
-                //}
-
                 RemoveFocus();
             }
         }
@@ -295,5 +280,31 @@ public class Movement : MonoBehaviour {
     public void IncreaseHealth()
     {
         health.value += 20;
+    }
+
+    public bool PlayerWon()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            Vector3 direction = transform.forward;
+            RaycastHit hit;
+            float sphereRadius = 2f;
+            float maxDistance = 2f;
+            Vector3 origin = transform.position;
+
+
+            if (Physics.SphereCast(origin, sphereRadius, direction, out hit, maxDistance))
+            {
+                if (hit.collider.tag == "Chest")
+                {
+                    chestAnim.SetBool("Open", true);
+                    won = true;
+                    anim.SetBool("Won", true);
+                }
+            }
+        }
+
+
+        return won;
     }
 }

@@ -4,3 +4,6 @@ In the GoblinAI script changed it that it will get the componment Movement for t
 In the EnemyHealth script changed it that the script will find the gameobject with the tag "Score" and then get the score script from that gameobject instead of manually putting the gameobject in the inspector
 In the Movement script changed it that the script will find the the gameobject with the tag "Enemy" an then get the enemyhealth script componment instead of manually putting in the script in the inspector
 In the Movement script changed the attacking button to the left mouse button
+Made a whole new inventory system. All changes are in the Scripts/Inventory folder. Made a UI thats is active when you press I
+Added a winning system. Once you kill the enemy the castle gate will be destroyed an you can go and open the chest to win
+Added a chest i made in 3ds max into the game and animated it to open when the player presses E near the chest
