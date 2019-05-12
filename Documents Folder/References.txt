@@ -1,0 +1,5 @@
+AI of enemy : https://www.youtube.com/watch?v=NEvdyefORBo&t=170s
+Inventory : https://www.youtube.com/watch?v=YLhj7SfaxSE
+All asstes used in the game are from the asset store except for the chest and the 3d animation character
+Changing scenes : https://loekvandenouweland.com/content/use-unity-button-to-change-between-scenes.html
+Camera : https://answers.unity.com/questions/600577/camera-rotation-around-player-while-following.html
